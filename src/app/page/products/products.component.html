@@ -1,0 +1,25 @@
+<p-table
+    [value]="products"
+    showGridlines
+    [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Cambiar cantidad</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>
+                    <p-button icon="pi pi-pencil" (onClick)="openModalToEditProduct(product)" [rounded]="true" [text]="true" [raised]="true" />
+                </td>
+            </tr>
+        </ng-template>
+</p-table>
+
+<app-add-products [(productSelect)]="productSelect" [(visible)]="visible"  (OnCloseModal)="OnCloseModal($event)"></app-add-products>

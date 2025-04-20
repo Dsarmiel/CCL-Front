@@ -1,6 +1,6 @@
 export default class ApiResponse<T> {
-    Success!: boolean;
-    Message!: string;
-    Data!: T;
-    Errors!: Array<string>;
+    success!: boolean;
+    message!: string;
+    data!: T;
+    errors!: Array<string>;
 }

@@ -3,59 +3,74 @@ import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import LoginDTO from '../../shared/DTOs/LoginDTO';
 import { AuthService } from '../../shared/services/auth.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
-import ApiResponse from '../../shared/Response/ApiResponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [CardModule, InputTextModule, ButtonModule, FloatLabelModule, ReactiveFormsModule],
+  imports: [
+    CardModule,
+    InputTextModule,
+    ButtonModule,
+    FloatLabelModule,
+    ReactiveFormsModule,
+  ],
   providers: [AuthService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
   public loginForm: FormGroup;
-  constructor(private _authService: AuthService){
+  constructor(private _authService: AuthService, private router: Router) {
     this.loginForm = new FormGroup({
       username: new FormControl('Admin', [Validators.required]),
-      password: new FormControl('ab123', [Validators.required, Validators.minLength(5)])
+      password: new FormControl('ab123', [
+        Validators.required,
+        Validators.minLength(5),
+      ]),
     });
   }
 
-  public login(){
+  public login() {
     const loginDto: LoginDTO = {
-      Username: this.username.value,
-      Password: this.password.value
+      username: this.username.value,
+      password: this.password.value,
     };
     this._authService.login(loginDto).subscribe({
-      next: (res) =>{
-        if(res.Success != false){
-          localStorage.setItem("Token", res.Data);
+      next: (res) => {
+        if (res.success != false) {
+          localStorage.setItem('Token', res.data);
+          this.router.navigateByUrl('products');
         }
       },
       error: (err: HttpErrorResponse) => {
         Swal.fire({
           title: err.error.message,
-          icon: 'error'
-        })
-      }
-    })
+          icon: 'error',
+        });
+      },
+    });
   }
 
-  public get username(): AbstractControl<any, any>{
-    return this.loginForm.controls['username']
+  public get username(): AbstractControl<any, any> {
+    return this.loginForm.controls['username'];
   }
 
-  public get password(): AbstractControl<any, any>{
-    return this.loginForm.controls['password']
+  public get password(): AbstractControl<any, any> {
+    return this.loginForm.controls['password'];
   }
 
   get IsFormValid(): boolean {
-    return this.loginForm.valid
+    return this.loginForm.valid;
   }
-
 }

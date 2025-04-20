@@ -5,13 +5,14 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import AppPreset from './app.theme';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { tokenInterceptor } from './shared/interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([tokenInterceptor])),
     providePrimeNG({
       theme: {
         preset: AppPreset,
