@@ -1,0 +1,29 @@
+<div class="container-login card flex h-screen items-center justify-center">
+    <p-card header="Simple Card">
+        <ng-template #title>Bienvenido a CCL</ng-template>
+        <ng-template #subtitle>Porfavor ingresa tus credenciales para entrar</ng-template>
+        <div class="mt-2">
+            <form [formGroup]="loginForm">
+                <p-floatlabel variant="on">
+                    <input class="w-full" formControlName="username" type="text" pInputText id="username" autocomplete="on" />
+                    <label for="username">Usuario</label>
+                </p-floatlabel>
+                @if(!username.valid){
+                    <small id="username-help" class="text-red-500">El usuario es requerido</small>
+                }
+                <p-floatlabel class="mt-4" variant="on">
+                    <input class="w-full" type="password" formControlName="password" pInputText id="password" autocomplete="on" />
+                    <label for="password">Contraseña</label>
+                </p-floatlabel>
+                @if(!password.valid){
+                    <small id="password-help" class="text-red-500">La contraseña es requerida y tiene que tener minimo 5 caracteres</small>
+                }
+            </form>
+        </div>
+        <ng-template #footer>
+            <div class="flex gap-4 mt-1">
+                <p-button label="Ingresar" [disabled]="!IsFormValid" class="w-full" styleClass="w-full" (onClick)="login()" />
+            </div>
+        </ng-template>
+    </p-card>
+</div>
