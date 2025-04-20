@@ -1,59 +1,82 @@
-# CClFrontend
+# 🧩 Angular App con PrimeNG y TailwindCSS
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+Este proyecto está desarrollado en **Angular 19**, integrando herramientas modernas como **TailwindCSS**, **PrimeNG**, **SweetAlert2** y una arquitectura modular clara para facilitar el mantenimiento y escalabilidad.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📁 Estructura del Proyecto
 
-```bash
-ng serve
-```
+```plaintext
+src/app
+│
+├── environments/             # Configuraciones de entorno (API endpoints, etc.)
+│   └── environment.ts
+│
+├── guards/                   # Protección de rutas (ej. AuthGuard)
+│   ├── auth.guard.ts
+│   └── auth.guard.spec.ts
+│
+├── page/                     # Páginas principales de la aplicación
+│   ├── login/                # Página de inicio de sesión
+│   └── products/             # Página de productos
+│
+├── shared/                   # Elementos reutilizables
+│   ├── DTOs/                 # Interfaces y clases de transferencia de datos
+│   ├── interceptors/         # Interceptores HTTP globales
+│   ├── response/             # Modelos de respuesta del backend
+│   └── services/             # Servicios compartidos (auth, API, etc.)
+│
+├── app.component.*           # Componente raíz de la app
+├── app.config.ts             # Configuraciones globales del proyecto
+├── app.routes.ts             # Rutas principales (Angular Router)
+├── app.theme.ts              # Configuración de tema y estilos
+│
+├── index.html                # HTML principal
+├── main.ts                   # Punto de entrada de la aplicación Angular
+└── styles.css                # Estilos globales (con TailwindCSS)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 📦 Dependencias
 
-```bash
-ng generate component component-name
-```
+Estas son las principales librerías utilizadas según el archivo `package.json`:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+| Paquete                        | Descripción                                        |
+|-------------------------------|----------------------------------------------------|
+| `@angular/*`                  | Framework base de Angular                         |
+| `primeng` y `@primeng/themes` | Componentes UI listos para usar con estilos       |
+| `primeicons`                  | Conjunto de íconos compatibles con PrimeNG        |
+| `tailwindcss`                 | Framework de estilos utility-first                |
+| `tailwindcss-primeui`         | Integración entre Tailwind y componentes PrimeNG  |
+| `sweetalert2`                 | Modales bonitos y personalizables                 |
+| `rxjs`                        | Librería reactiva utilizada por Angular           |
+| `zone.js`                     | Gestión del contexto asincrónico para Angular     |
+| `postcss`                     | Procesador de estilos (requerido por Tailwind)    |
+| `tslib`                       | Librería de utilidades para TypeScript            |
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## ▶️ Cómo ejecutar el proyecto
 
-To build the project run:
+### 1. Instalar dependencias
 
-```bash
-ng build
-```
+Desde la raíz del proyecto, ejecuta:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+npm install
 
-## Running unit tests
+Luego ejecutar el siguiente comando para compilar el proyecto (por defecto se ejecuta en el puerto 4200):
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+ng serve 
 
-```bash
-ng test
-```
+### 2. Configurar entorno
+Asegúrate de que el archivo src/app/environments/environment.ts esté configurado correctamente. Un ejemplo de configuración sería:
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+export const environment = {
+  production: false,
+  apiUrl: 'https://localhost:7265',
+  endpoints: {
+    auth: "/auth",
+    products: "/productos"
+  }
+};
